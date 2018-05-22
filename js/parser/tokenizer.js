@@ -132,5 +132,3 @@ const tokenizer = input => {
     croak: input.croak,
   }
 }
-
-export default tokenizer;

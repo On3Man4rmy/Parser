@@ -177,5 +177,3 @@ const parser = input => {
 
   return parse_toplevel();
 }
-
-export default parser;

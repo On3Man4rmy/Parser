@@ -13,19 +13,20 @@
 </head>
 
 <body>
-  <!--[if lte IE 9]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->
-
-  <!-- Add your site or application content here -->
   <textarea id="input" rows="4" cols="50">
     sum = lambda(a, b) {
       a + b;
     };
     print(sum(1, 2));
   </textarea>
-  <a id="output"/>
-  <script type="module" src="js/main.js"></script>
+  <a id="output"></a>
+  <div class="chart"></div>
+
+  <script src="js/vendor/d3/d3.js"></script>
+  <script src="js/parser/parser.js"></script>
+  <script src="js/parser/inputStream.js"></script>
+  <script src="js/parser/tokenizer.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

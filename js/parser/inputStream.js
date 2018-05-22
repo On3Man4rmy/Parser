@@ -29,5 +29,3 @@ const inputStream = input => {
     croak,
   }
 }
-
-export default inputStream;
