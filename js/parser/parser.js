@@ -196,19 +196,35 @@ const parser = input => {
       elementName = node.type || name;
       elementName += node.value ? `: ${node.value} ` : "";
       elementName += node.operator ? `: ${node.operator} ` : "";
+      elementName += node.type == "call" ? `: ${node.func.value} ` : "";
     } else {
       elementName = node;
     }
 
     const children = (node instanceof Object)
       ? Object.entries(node)
-      .filter(([key, value]) => !["type", "value", "operator"].includes(key))
-      .map(([key, value]) => parseObjectNode(value, key))
+        .filter(([key, value]) =>
+          !["type", "value", "operator"].includes(key)
+          && !(node.type == "call" && key == "func"))
+        .reduce((pv, [key, value]) => {
+          node.type == "call" && key == "args"
+          ? value.forEach((arg, i) => pv.push([i, arg]))
+          : pv.push([key, value])
+          return pv;
+        }, [])
+        .reduce((pv, [key, value]) => {
+          node.type == "prog" && key == "program"
+          ? value.forEach((arg, i) => pv.push([i, arg]))
+          : pv.push([key, value])
+          return pv;
+        }, [])
+        .map(([key, value]) => parseObjectNode(value, key))
       : null;
 
     return {
       name: elementName,
-      ...(children ? {children} : {})
+      ...(children ? {children} : {}),
+      ...(node.type ? {type: node.type} : {})
     };
   }
 

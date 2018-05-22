@@ -70,11 +70,12 @@ const tree = rootNode => {
 
     // Enter any new nodes at the parent's previous position.
     var nodeEnter = node.enter().append("g")
-  	  .attr("class", "node")
+  	  .attr("class", function(d) { return `node ${d.type ? d.type : ""}`})
   	  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
   	  .on("click", click);
 
     nodeEnter.append("rect")
+      .attr("class", function(d) { return `${d.type ? d.type : ""}`})
       .attr("width", 100)
       .attr("height", 20)
       .attr("transform", function(d) { return "translate(0, -10)"; })

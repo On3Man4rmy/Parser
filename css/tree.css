@@ -17,3 +17,27 @@
   stroke: #ccc;
   stroke-width: 2px;
 }
+
+.num rect {
+  fill: #cdff79;
+}
+
+.var rect {
+  fill: #cdff79;
+}
+
+.binary rect {
+  fill: #fff583;
+}
+
+.call rect {
+  fill: #b9fff8;
+}
+
+.assign rect {
+  fill: #b9fff8;
+}
+
+.lambda rect {
+  fill: #b9fff8;
+}
