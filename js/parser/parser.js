@@ -175,5 +175,45 @@ const parser = input => {
 
   const parseExpression = () => maybeCall(() => maybeBinary(parseAtom(), 0));
 
-  return parse_toplevel();
+  const parseTree = () => {
+      const rootNode = parse_toplevel();
+      return [parseObjectNode(rootNode, "null")];
+  }
+
+  const parseObjectNode = (node, name) => {
+    /*const value = node.value
+      ? ` : ${node.value}`
+      : node.operator
+        ? ` : ${node.operator}`
+        : "";
+    const elementName = name ? name : node.type + value;
+    /*const children = Object.keys(node)
+      .filter(key => node[key] instanceof Object)
+      .map(key => parseObjectNode(node[key], name, key));
+    //const parentName = parent ? parent.type : null;*/
+    let elementName;
+    if (node instanceof Object) {
+      elementName = node.type || name;
+      elementName += node.value ? `: ${node.value} ` : "";
+      elementName += node.operator ? `: ${node.operator} ` : "";
+    } else {
+      elementName = node;
+    }
+
+    const children = (node instanceof Object)
+      ? Object.entries(node)
+      .filter(([key, value]) => !["type", "value", "operator"].includes(key))
+      .map(([key, value]) => parseObjectNode(value, key))
+      : null;
+
+    return {
+      name: elementName,
+      ...(children ? {children} : {})
+    };
+  }
+
+  return {
+    parseTree,
+    parseObject: parse_toplevel,
+  }
 }

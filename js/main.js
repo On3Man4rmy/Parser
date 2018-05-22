@@ -4,35 +4,28 @@ import parser from "./parser/parser.js";
 import * as d3 from "../node_modules/d3";*/
 const input = document.getElementById("input");
 const output = document.getElementById("output");
-
+const chart = document.getElementById("chart");
 const parse = (string) => parser(tokenizer(inputStream(string)));
+const treeView = tree();
 const sourceCode =
 `sum = lambda(a, b) {
   a + b;
 };
 print(sum(1, 2));`
 
-// http://lisperator.net/pltut/parser/the-parser
-console.log(`Thanks to Lisperator.net for the tutorial and source code :D\n`);
-console.log(`Source:\n${sourceCode}\n`)
-console.log(`Evaluated:`);
-console.log(parse(sourceCode));
-
 input.addEventListener("input", (e) => {
-  output.textContent = JSON.stringify(parse(e.currentTarget.value));
+  const data = parse(e.currentTarget.value).parseTree();
+  updateChart(data);
 });
 
-var data = [30, 86, 168, 281, 303, 365];
+const updateChart = data => {
+  treeView(data);
+}
 
-console.log("message")
-/*d3.select(".chart")
-.selectAll("div")
-.data(data)
-  .enter()
-  .append("div")
-  .style("width", function(d) { return d + "px"; })
-  .text(function(d) { return d; });
-*/
-document.addEventListener("load", () => {
-
-})
+// http://lisperator.net/pltut/parser/the-parser
+console.log(`Thanks to Lisperator.net for the tutorial and source code :D\n`);
+const dataTree = parse(input.value).parseTree();
+const dataObject = parse(input.value).parseObject();
+console.log(dataTree);
+console.log(dataObject);
+updateChart(dataTree);
