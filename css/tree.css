@@ -2,10 +2,10 @@
 		cursor: pointer;
 	}
 
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
+.node rect {
+  fill: rgb(165, 203, 218);
+  stroke: grey;
+  stroke-width: 1px;
 }
 
 .node text {

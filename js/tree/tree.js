@@ -74,14 +74,17 @@ const tree = rootNode => {
   	  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
   	  .on("click", click);
 
-    nodeEnter.append("circle")
-  	  .attr("r", 1e-6)
-  	  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+    nodeEnter.append("rect")
+      .attr("width", 100)
+      .attr("height", 20)
+      .attr("transform", function(d) { return "translate(0, -10)"; })
+  	  //.style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
     nodeEnter.append("text")
-  	  .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+  	  //.attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+      .attr("x", function(d) { return 5; })
   	  .attr("dy", ".35em")
-  	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+  	  //.attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
   	  .text(function(d) { return d.name; })
   	  .style("fill-opacity", 1e-6);
 
