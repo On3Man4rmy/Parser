@@ -181,16 +181,6 @@ const parser = input => {
   }
 
   const parseObjectNode = (node, name) => {
-    /*const value = node.value
-      ? ` : ${node.value}`
-      : node.operator
-        ? ` : ${node.operator}`
-        : "";
-    const elementName = name ? name : node.type + value;
-    /*const children = Object.keys(node)
-      .filter(key => node[key] instanceof Object)
-      .map(key => parseObjectNode(node[key], name, key));
-    //const parentName = parent ? parent.type : null;*/
     let elementName;
     if (node instanceof Object) {
       elementName = node.type || name;

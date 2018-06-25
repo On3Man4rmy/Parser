@@ -14,8 +14,14 @@ const sourceCode =
 print(sum(1, 2));`
 
 input.addEventListener("input", (e) => {
-  const data = parse(e.currentTarget.value).parseTree();
-  updateChart(data);
+  //const data = parse(e.currentTarget.value).parseTree();
+  const data = tokenizer(inputStream(e.currentTarget.value));
+  const tokens = [];
+  while(data.peek()) {
+    tokens.push(data.next());
+  }
+  console.log(tokens);
+  //updateChart(data);
 });
 
 const updateChart = data => {
@@ -24,8 +30,8 @@ const updateChart = data => {
 
 // http://lisperator.net/pltut/parser/the-parser
 console.log(`Thanks to Lisperator.net for the tutorial and source code :D\n`);
-const dataTree = parse(input.value).parseTree();
+/*const dataTree = parse(input.value).parseTree();
 const dataObject = parse(input.value).parseObject();
 console.log(dataTree);
 console.log(dataObject);
-updateChart(dataTree);
+updateChart(dataTree);*/

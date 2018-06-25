@@ -14,20 +14,32 @@
 </head>
 
 <body>
+  <!--
+  sum = lambda(a, b) {
+    a + b;
+  };
+  print(sum(1, 2));
+  -->
   <textarea id="input" rows="4" cols="50">
-    sum = lambda(a, b) {
-      a + b;
-    };
-    print(sum(1, 2));
+    read A
+    read B
+    sum := A + B
+    write sum
+    write sum / 2
   </textarea>
   <a id="output"></a>
   <div id="chart" class="chart"></div>
 
   <script src="//d3js.org/d3.v3.min.js"></script>
   <script src="js/tree/tree.js"></script>
+<!--
   <script src="js/parser/parser.js"></script>
   <script src="js/parser/inputStream.js"></script>
   <script src="js/parser/tokenizer.js"></script>
+-->
+  <script src="js/calculatorParser/parser.js"></script>
+  <script src="js/calculatorParser/inputStream.js"></script>
+  <script src="js/calculatorParser/tokenizer.js"></script>
   <script src="js/main.js"></script>
 </body>
 
