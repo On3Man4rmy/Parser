@@ -14,6 +14,8 @@ const tokenizer = input => {
 
   const isWhitespace = char => " \t\n".indexOf(char) >= 0;
 
+  const isPunctuation = char => "()".indexOf(char) >= 0;
+
   const readWhile = predicate => {
     let string = "";
     while(!input.eof() && predicate(input.peek())) {
@@ -35,17 +37,22 @@ const tokenizer = input => {
       return isDigit(char);
     });
     return {
-      type: "num",
+      type: "number",
       value: parseFloat(number),
     }
   }
 
   const readIndentifier = () => {
+    const response = {};
     const identifier = readWhile(isIdentifier);
-    return {
-      type: isKeyword(identifier) ? "keyword" : "var",
-      value: identifier,
+    if(isKeyword(identifier)) {
+      response.type = identifier;
+      response.value = identifier;
+    } else {
+      response.type = "id";
+      response.value = identifier;
     }
+    return response;
   }
 
   const readEscaped = end => {
@@ -70,7 +77,10 @@ const tokenizer = input => {
   const readNext = () => {
     readWhile(isWhitespace);
     if (input.eof()) {
-      return null;
+      return {
+        type: "$$",
+        value: null
+      };
     }
     const char = input.peek();
     if (isDigit(char)) {
@@ -79,10 +89,18 @@ const tokenizer = input => {
     if (isIdentifierStart(char)) {
       return readIndentifier();
     }
-    if(isOperatorChar(char)) {
+    if (isPunctuation(char)) {
       return {
-        type: "op",
-        value: readWhile(isOperatorChar),
+        type: char,
+        value: char,
+      };
+    }
+
+    if(isOperatorChar(char)) {
+      const operator = readWhile(isOperatorChar);
+      return {
+        type: operator,
+        value: operator,
       }
     }
     input.croak(`Can´t handle character: ${char}`);

@@ -15,17 +15,19 @@ print(sum(1, 2));`
 
 input.addEventListener("input", (e) => {
   //const data = parse(e.currentTarget.value).parseTree();
-  const data = tokenizer(inputStream(e.currentTarget.value));
+  const data = parser(tokenizer(inputStream(e.currentTarget.value)))();
+  const data2 = tokenizer(inputStream(e.currentTarget.value));
   const tokens = [];
-  while(data.peek()) {
-    tokens.push(data.next());
+  while(data2.peek().type != '$$') {
+    tokens.push(data2.next());
   }
   console.log(tokens);
-  //updateChart(data);
+  console.log(data);
+  updateChart(parseTree(data));
 });
 
 const updateChart = data => {
-  treeView(data);
+  treeView([data]);
 }
 
 // http://lisperator.net/pltut/parser/the-parser
